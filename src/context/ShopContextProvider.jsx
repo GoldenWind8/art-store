@@ -24,7 +24,35 @@ function ShopContextProvider(props) {
 		setCartItems((prev) => ({ ...prev, [id]: prev[id] - 1 }));
 	};
 
-	const contextValues = { cartItems, addItemToCart, removeItemFromCart };
+	const updateCartItemCount = (newAmount, itemId) => {
+		setCartItems((prev) => ({ ...prev, [itemId]: newAmount }));
+	};
+
+	const getTotalCartAmount = () => {
+		let totalAmount = 0;
+		for (const item in cartItems) {
+			if (cartItems[item] > 0) {
+				let itemInfo = PRODUCTS.find(
+					(product) => product.id === Number(item)
+				);
+				totalAmount += cartItems[item] * itemInfo.price;
+			}
+		}
+		return totalAmount;
+	};
+
+	const checkout = () => {
+		setCartItems(getDefaultCartItems());
+	};
+
+	const contextValues = {
+		cartItems,
+		addItemToCart,
+		updateCartItemCount,
+		removeItemFromCart,
+		getTotalCartAmount,
+		checkout,
+	};
 
 	return (
 		<ShopContext.Provider value={contextValues}>

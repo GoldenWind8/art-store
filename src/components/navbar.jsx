@@ -12,6 +12,7 @@ function Navbar(props) {
 				<Link to="/cart">
 					<ShoppingCart size={32} />
 				</Link>
+				<Link to={"/productsmanager"}>Product Management</Link>
 			</div>
 		</div>
 	);
